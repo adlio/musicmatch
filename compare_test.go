@@ -1,4 +1,4 @@
-package matchdata
+package musicmatch
 
 import (
 	"strings"
