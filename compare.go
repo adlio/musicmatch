@@ -18,6 +18,7 @@ func CompareArtistNames(a, b []string) (score, scrubbedScore float64) {
 
 	for i, left := range a {
 		bestScore = 0.0
+		bestScrubbedScore = 0.0
 		for _, right := range b {
 			thisScore, thisScrubbedScore = CompareArtistName(left, right)
 			if thisScrubbedScore > bestScrubbedScore {
