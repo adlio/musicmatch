@@ -17,41 +17,59 @@ func ScrubArtistName(original string) string {
 // TrackTitleIgnoredPhrases is the array of regular expressions which will
 // be stripped from track titles during the scrubbing process
 var TrackTitleIgnoredPhrases = []*regexp.Regexp{
-	regexp.MustCompile("(?i)remaster(ed)?"),
+	regexp.MustCompile("(?i)\\([^)]*remaster[^)]*\\)$"),
+	regexp.MustCompile("(?i)\\([^)]*version[^)]*\\)$"),
+	regexp.MustCompile("(?i)\\([^)]*live[^)]*\\)$"),
 	regexp.MustCompile("(?i)parental\\s*advisory"),
-	regexp.MustCompile("(?i)(radio|deluxe|album|expanded)\\s*(edit|edition|version|release)?"),
+	regexp.MustCompile("(?i)(radio|deluxe|album|live|expanded)\\s*(edition|version|release|edit)?"),
 }
 
 // ScrubTrackTitle scrubs noise words for song titles, removes punctuation
 // and lowercases
 func ScrubTrackTitle(original string) string {
 	var result string
-	result = original
+	result = normalizeParens(original)
 	for _, re := range TrackTitleIgnoredPhrases {
 		result = re.ReplaceAllString(result, "")
 	}
 	result = Scrub(result)
+	result = strings.TrimSpace(result)
 	return result
 }
 
 //AlbumTitleIgnoredPhrases is the arraty of regular expressions which will
 // be stripped from album titles during the scrubbing process
 var AlbumTitleIgnoredPhrases = []*regexp.Regexp{
+	regexp.MustCompile("(?i)\\s+\\([^)]*remaster[^)]*\\)$"),
+	regexp.MustCompile("(?i)\\s+\\([^)]*deluxe[^)]*\\)$"),
+	regexp.MustCompile("(?i)\\s+\\([^)]*version[^)]*\\)$"),
 	regexp.MustCompile("(?i)parental\\s*advisory"),
-	regexp.MustCompile("(?i)\\b(\\d{4})?\\s*remaster(ed)?\\s*(edition|version|release)?"),
-	regexp.MustCompile("(?i)\\b(super)?\\s*(deluxe|expanded)\\s*(edition|version|release)?"),
 }
 
 // ScrubAlbumTitle scrubs noise words for album titles, removes punctuation
 // and lowercases
 func ScrubAlbumTitle(original string) string {
 	var result string
-	result = original
+	result = normalizeParens(original)
 	for _, re := range AlbumTitleIgnoredPhrases {
 		result = re.ReplaceAllString(result, "")
 	}
 	result = Scrub(result)
+	result = strings.TrimSpace(result)
 	return result
+}
+
+func normalizeParens(original string) string {
+	return strings.Map(func(r rune) rune {
+		switch r {
+		case '[', '{':
+			return '('
+		case ']', '}':
+			return ')'
+		default:
+			return r
+		}
+	}, original)
 }
 
 // Scrub removes all punctuation and lowercases the word. If the original
