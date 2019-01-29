@@ -1,4 +1,4 @@
-package musicmatch
+package musicmeta
 
 import (
 	"regexp"

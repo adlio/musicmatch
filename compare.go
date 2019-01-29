@@ -1,4 +1,4 @@
-package musicmatch
+package musicmeta
 
 import (
 	"github.com/gonum/stat"
