@@ -19,6 +19,7 @@ func ScrubArtistName(original string) string {
 var TrackTitleIgnoredPhrases = []*regexp.Regexp{
 	regexp.MustCompile("(?i)\\([^)]*remaster[^)]*\\)$"),
 	regexp.MustCompile("(?i)\\([^)]*version[^)]*\\)$"),
+	regexp.MustCompile("(?i)\\([^)]*mix[^)]*\\)$"),
 	regexp.MustCompile("(?i)\\([^)]*live[^)]*\\)$"),
 	regexp.MustCompile("(?i)parental\\s*advisory"),
 	regexp.MustCompile("(?i)(radio|deluxe|album|live|expanded)\\s*(edition|version|release|edit)?"),

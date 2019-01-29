@@ -30,6 +30,7 @@ func TestScrubTrackTitles(t *testing.T) {
 		"The Message (Re-Recorded / Remastered Version)":    "the message",
 		"Dirty Acres [Deluxe Edition]":                      "dirty acres",
 		"Little Darlin’ (Re-Recorded / Remastered)":         "little darlin",
+		"Killin' It (original mix)":                         "killin it",
 	}, ScrubTrackTitle)
 }
 
