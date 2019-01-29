@@ -16,6 +16,7 @@ func TestScrubAlbumTitles(t *testing.T) {
 		"World Peace Is None Of Your Business (Deluxe)":   "world peace is none of your business",
 		"Hillbilly Deluxe":                 "hillbilly deluxe",
 		"In Da Mix (Super Deluxe Edition)": "in da mix",
+		"Play Hard Ep":                     "play hard",
 	}, ScrubAlbumTitle)
 }
 

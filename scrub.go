@@ -40,6 +40,7 @@ func ScrubTrackTitle(original string) string {
 //AlbumTitleIgnoredPhrases is the arraty of regular expressions which will
 // be stripped from album titles during the scrubbing process
 var AlbumTitleIgnoredPhrases = []*regexp.Regexp{
+	regexp.MustCompile("(?i)\\s+(EP|LP)$"),
 	regexp.MustCompile("(?i)\\s+\\([^)]*remaster[^)]*\\)$"),
 	regexp.MustCompile("(?i)\\s+\\([^)]*deluxe[^)]*\\)$"),
 	regexp.MustCompile("(?i)\\s+\\([^)]*version[^)]*\\)$"),
