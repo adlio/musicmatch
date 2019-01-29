@@ -22,13 +22,13 @@ func TestCompareArtistNames(t *testing.T) {
 }
 
 func TestCompareArtistName(t *testing.T) {
-	testCompareFunc(t, map[string]float64{
+	testStringCompareFunc(t, map[string]float64{
 		"P!nk :: Pink": 90.0,
 	}, CompareArtistName)
 }
 
 func TestCompareTrackTitles(t *testing.T) {
-	testCompareFunc(t, map[string]float64{
+	testStringCompareFunc(t, map[string]float64{
 		"All You Never Say (Us Version) :: All You Never Say": 100.0,
 		"Penthouse Eyes (Lp Version) :: Penthouse Eyes":       100.0,
 		"Bean :: Been": 75.0,
@@ -36,14 +36,28 @@ func TestCompareTrackTitles(t *testing.T) {
 }
 
 func TestCompareAlbumTitles(t *testing.T) {
-	testCompareFunc(t, map[string]float64{
+	testStringCompareFunc(t, map[string]float64{
 		"The Better Life (Deluxe Edition) :: The Better Life":           100.0,
 		"Greatest Hits, Vol. 1 (Deluxe Edition) :: Greatest Hits Vol 1": 100.0,
 		"Thyme :: Times": 60.0,
 	}, CompareAlbumTitles)
 }
 
-func testCompareFunc(t *testing.T, data map[string]float64, compareFunc func(string, string) (float64, float64)) {
+func TestCompareDurations(t *testing.T) {
+	var s1, s2 float64
+
+	s1, s2 = CompareDurations(125, 125)
+	if s1 != 100 || s2 != 100 {
+		t.Errorf("Expected exactly equal values to get 100.0,100.0. Instead got %v,%v", s1, s2)
+	}
+
+	s1, s2 = CompareDurations(200, 100)
+	if s1 != 50 || s2 != 50 {
+		t.Errorf("Expected half-wrong values to get 50.0,50.0. Instead got %v,%v", s1, s2)
+	}
+}
+
+func testStringCompareFunc(t *testing.T, data map[string]float64, compareFunc func(string, string) (float64, float64)) {
 	for input, expectedScrubbedScore := range data {
 		parts := strings.Split(input, " :: ")
 		_, actualScrubbedScore := compareFunc(parts[0], parts[1])
@@ -51,5 +65,4 @@ func testCompareFunc(t *testing.T, data map[string]float64, compareFunc func(str
 			t.Errorf("Expected '%s' to have score %v. Instead got %v", input, expectedScrubbedScore, actualScrubbedScore)
 		}
 	}
-
 }

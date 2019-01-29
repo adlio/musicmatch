@@ -68,3 +68,21 @@ func CompareAlbumTitles(a, b string) (score, scrubbedScore float64) {
 	scrubbedScore = levenshtein.RatioForStrings([]rune(scrubbedA), []rune(scrubbedB), levenshtein.DefaultOptions)
 	return score * 100, scrubbedScore * 100
 }
+
+// CompareDurations returns a score for the similarity of the durations
+// of the two songs
+func CompareDurations(a, b int) (score, scrubbedScore float64) {
+
+	if a <= 0 {
+		// Special case.. if the duration is unknown on the target,
+		// then consider them matched when scrubbed, but not otherwise
+		return 0, 100
+	}
+
+	delta := float64(a - b)
+	if delta < 0 {
+		delta = delta * -1
+	}
+	score = 100 - ((delta / float64(a)) * 100)
+	return score, score
+}
