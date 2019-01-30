@@ -79,7 +79,9 @@ func (date *ReleaseDate) Scan(value interface{}) error {
 // parsing to time.Time.
 func (date *ReleaseDate) ScanString(s string) {
 	var ptn string
-	if len(s) > 10 {
+	if len(s) == 20 {
+		ptn = "2006-01-02T15:04:05Z"
+	} else if len(s) > 10 {
 		ptn = "2006-01-02 15:04:05"
 	} else {
 		ptn = "2006-01-02"
