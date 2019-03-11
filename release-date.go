@@ -81,6 +81,8 @@ func (date *ReleaseDate) ScanString(s string) {
 	var ptn string
 	if len(s) == 20 {
 		ptn = "2006-01-02T15:04:05Z"
+	} else if len(s) == 19 {
+		ptn = "2006-01-02T15:04:05"
 	} else if len(s) > 10 {
 		ptn = "2006-01-02 15:04:05"
 	} else {

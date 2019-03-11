@@ -83,6 +83,14 @@ func TestDateScanTimelessUTCString(t *testing.T) {
 	assert.Equal(t, 2, d.Day())
 }
 
+func TestDateScanTimelessUTCStringWithNoZ(t *testing.T) {
+	var d ReleaseDate
+	d.Scan("2006-03-07T00:00:00")
+	assert.Equal(t, 2006, d.Year())
+	assert.Equal(t, time.March, d.Month())
+	assert.Equal(t, 7, d.Day())
+}
+
 func TestUnmarshalXML(t *testing.T) {
 	s := struct {
 		ReleaseDate ReleaseDate
