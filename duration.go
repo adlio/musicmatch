@@ -20,3 +20,11 @@ func DurationFromString(durStr string) time.Duration {
 	}
 	return d
 }
+
+// DurationFromStringInSeconds converts a song length in string
+// format (e.g. 00:00) and returns an integer representing the
+// song's length in seconds.
+//
+func DurationFromStringInSeconds(durStr string) int {
+	return int(DurationFromString(durStr).Seconds())
+}
