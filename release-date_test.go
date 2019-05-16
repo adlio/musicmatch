@@ -98,6 +98,9 @@ func TestUnmarshalXML(t *testing.T) {
 	xmlData := []byte(`<Component><ReleaseDate>2013-05-01</ReleaseDate></Component>`)
 	err := xml.Unmarshal(xmlData, &s)
 	assert.Nil(t, err)
+	assert.Equal(t, 2013, s.ReleaseDate.Year())
+	assert.Equal(t, time.May, s.ReleaseDate.Month())
+	assert.Equal(t, 1, s.ReleaseDate.Day())
 }
 
 func TestMarshalJSON(t *testing.T) {
