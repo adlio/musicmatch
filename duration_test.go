@@ -28,6 +28,8 @@ func TestDurationFromStringWithTypicalSongLengths(t *testing.T) {
 	d = DurationFromString("09:09")
 	assert.Equal(t, 9.0, math.Floor(d.Minutes()))
 	assert.Equal(t, 549.0, d.Seconds())
+	d = DurationFromString("3:09")
+	assert.Equal(t, 189.0, d.Seconds())
 }
 
 func TestDurationFromStringWithTypicalMovieLengths(t *testing.T) {
