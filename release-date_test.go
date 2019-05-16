@@ -31,6 +31,12 @@ func TestDateFromString(t *testing.T) {
 	assert.Equal(t, 2015, d.Year())
 	assert.Equal(t, time.April, d.Month())
 	assert.Equal(t, 1, d.Day())
+
+	d = DateFromString("08-24-2018")
+	assert.NotNil(t, d)
+	assert.Equal(t, 2018, d.Year())
+	assert.Equal(t, time.August, d.Month())
+	assert.Equal(t, 24, d.Day())
 }
 
 func TestDateFromStringWithBlankTime(t *testing.T) {

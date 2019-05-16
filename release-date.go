@@ -85,6 +85,8 @@ func (date *ReleaseDate) ScanString(s string) {
 		ptn = "2006-01-02T15:04:05"
 	} else if len(s) > 10 {
 		ptn = "2006-01-02 15:04:05"
+	} else if len(s) == 10 && s[2] == '-' {
+		ptn = "01-02-2006"
 	} else {
 		ptn = "2006-01-02"
 	}
